@@ -1,5 +1,5 @@
 import socket
-import timeasdf
+import time
 import threading
 
 from lib.evil import bitcoin_mine, harvest_user_pass
