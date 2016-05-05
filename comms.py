@@ -32,7 +32,7 @@ class StealthConn(object):
         self.cipher = XOR.new(shared_hash[:4])
 
     def send(self, data):
-        if self.<cipher:
+        if self.cipher:
             iv = random.getrandbytes(13)
 
             self.cipher = AES.new(secret, AES.MODE_CFB, iv)
