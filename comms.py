@@ -32,8 +32,13 @@ class StealthConn(object):
         self.cipher = XOR.new(shared_hash[:4])
 
     def send(self, data):
-        if self.cipher:
+        if self.<cipher:
+            iv = random.getrandbytes(13)
+
+            self.cipher = AES.new(secret, AES.MODE_CFB, iv)
+            
             encrypted_data = self.cipher.encrypt(data)
+            total_data = iv + encrypted_data
             if self.verbose:
                 print("Original data: {}".format(data))
                 print("Encrypted data: {}".format(repr(encrypted_data)))
@@ -53,6 +58,7 @@ class StealthConn(object):
         pkt_len = unpacked_contents[0]
 
         encrypted_data = self.conn.recv(pkt_len)
+        iv, encrypted_data = (encrypted_data[:10], encrypted_data[13:])
         if self.cipher:
             data = self.cipher.decrypt(encrypted_data)
             if self.verbose:
